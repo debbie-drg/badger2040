@@ -9,10 +9,12 @@ CODES = dict()
 # Load all available QR Code Files for each skew
 for skew in SKEW_LIST:
     try:
-        CODES[skew] = [f for f in os.listdir(f'/{QR_CODE_DIRECTORY}/{skew}') if f.endswith(".txt")]
+        CODES[skew] = [
+            f for f in os.listdir(f"/{QR_CODE_DIRECTORY}/{skew}") if f.endswith(".txt")
+        ]
         TOTAL_CODES[skew] = len(CODES[skew])
     except OSError:
-        print(f'No QR codes found for skew {skew}')
+        print(f"No QR codes found for skew {skew}")
         pass
 
 code = qrcode.QRCode()
@@ -40,16 +42,18 @@ def draw_qr_code(ox, oy, size, code):
     for x in range(size):
         for y in range(size):
             if code.get_module(x, y):
-                display.rectangle(ox + x * module_size, oy + y * module_size, module_size, module_size)
+                display.rectangle(
+                    ox + x * module_size, oy + y * module_size, module_size, module_size
+                )
 
 
-def draw_qr_file(index: int = 0, skew: str = 'normal'):
+def draw_qr_file(index: int = 0, skew: str = "normal"):
     display.led(128)
-    
+
     if TOTAL_CODES[skew] == 0:
-        print(f'No QR codes in skew {skew}. Code will not be printed.')
+        print(f"No QR codes in skew {skew}. Code will not be printed.")
         return None
-    
+
     index = index % TOTAL_CODES[skew]
     file = CODES[skew][index]
     codetext = open(f"{QR_CODE_DIRECTORY}/{skew}/{file}", "r")
@@ -82,34 +86,36 @@ def draw_qr_file(index: int = 0, skew: str = 'normal'):
     # Draw black box around name
     display.thickness(26)
     display.line(128 + 13, 13, WIDTH - 1, 13)
-    
+
     # Draw the header
     display.pen(15)  # Change this to 0 if a white background is used
     display.font("bitmap6")
     display.thickness(1)
     display.text(title_text, left, 3, 3)
-    
-    # Draw detail lines  
+
+    # Draw detail lines
     display.thickness(1)
     display.pen(0)
-    display.font('bitmap14_outline')
+    display.font("bitmap14_outline")
 
     top = 32
     for line in detail_text:
         display.text(line, left, top, 0.4)
         top += 13
-        
+
     # Draw box around bottom line
     display.thickness(26)
     display.line(128 + 13, HEIGHT - 11, WIDTH - 1, HEIGHT - 11)
-    
+
     # Draw text for last details line
-    display.font('bitmap6')
+    display.font("bitmap6")
     display.thickness(1)
     display.pen(15)
-    display.text('Scan the code!', left, HEIGHT - 19, 2)
+    display.text("Scan the code!", left, HEIGHT - 19, 2)
 
-    if TOTAL_CODES[skew] > 1: # This would draw squares hinting to the number of QR codes
+    if (
+        TOTAL_CODES[skew] > 1
+    ):  # This would draw squares hinting to the number of QR codes
         for i in range(TOTAL_CODES[skew]):
             x = 286
             y = int((128 / 2) - (TOTAL_CODES[skew] * 10 / 2) + (i * 10))
@@ -120,7 +126,8 @@ def draw_qr_file(index: int = 0, skew: str = 'normal'):
                 display.rectangle(x + 1, y + 1, 6, 6)
 
     display.update()
-    
+
+
 # Main programme for testing purposes
-if __name__ == '__main__':
+if __name__ == "__main__":
     draw_qr_file()

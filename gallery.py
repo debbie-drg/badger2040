@@ -12,10 +12,12 @@ IMAGES = dict()
 TOTAL_GALLERY_IMAGES = dict()
 for skew in SKEW_LIST + ALTERNATE_GALLERY_SKEWS:
     try:
-        IMAGES[skew] = [f for f in os.listdir(f'/{GALLERY_DIRECTORY}/{skew}') if f.endswith(".bin")]
+        IMAGES[skew] = [
+            f for f in os.listdir(f"/{GALLERY_DIRECTORY}/{skew}") if f.endswith(".bin")
+        ]
         TOTAL_GALLERY_IMAGES[skew] = len(IMAGES[skew])
     except OSError:
-        print(f'No images directory for skew {skew}')
+        print(f"No images directory for skew {skew}")
         pass
 
 # Blank full size image to write to
@@ -26,14 +28,14 @@ full_image = bytearray(int(296 * 128 / 8))
 # ------------------------------
 
 
-def show_image(index, skew = "normal"):
+def show_image(index, skew="normal"):
 
     if TOTAL_GALLERY_IMAGES[skew] == 0:
-        print(f'No images in skew {skew}. Image will not be printed')
+        print(f"No images in skew {skew}. Image will not be printed")
         return None
 
     index = index % TOTAL_GALLERY_IMAGES[skew]
-    open(f'{GALLERY_DIRECTORY}/{skew}/{IMAGES[skew][index]}', "r").readinto(full_image)
+    open(f"{GALLERY_DIRECTORY}/{skew}/{IMAGES[skew][index]}", "r").readinto(full_image)
 
     display.image(full_image)
     display.update()

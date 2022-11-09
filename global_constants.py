@@ -9,7 +9,7 @@ HEIGHT = badger2040.HEIGHT
 
 # Skew and alternate gallery lists
 
-SKEW_LIST = ['normal']
+SKEW_LIST = ["normal"]
 ALTERNATE_GALLERY_SKEWS = []
 
 # Maximum number of partial updates within the same mode
@@ -21,6 +21,3 @@ MAX_PARTIAL_UPDATES = 2
 BADGE_ASSETS_DIRECTORY = "badge_assets"
 QR_CODE_DIRECTORY = "qrcodes"
 GALLERY_DIRECTORY = "images"
-
-
-

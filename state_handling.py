@@ -3,8 +3,15 @@ import json
 
 
 def state_defaults():
-    state = {"mode": "badge", "skew": "normal", "index": 0, "skew_index": 0, "gallery_index": 0}
+    state = {
+        "mode": "badge",
+        "skew": "normal",
+        "index": 0,
+        "skew_index": 0,
+        "gallery_index": 0,
+    }
     return state
+
 
 def state_load(app, state):
     try:
@@ -32,6 +39,7 @@ def state_save(app, data):
             f.flush()
     except OSError:
         import os
+
         try:
             os.stat("/state")
         except OSError:
@@ -44,6 +52,3 @@ def state_modify(app, data):
     state_load(app, state)
     state.update(data)
     state_save(app, state)
-
-
-
