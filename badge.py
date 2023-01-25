@@ -65,7 +65,7 @@ for skew in SKEW_LIST:
 
 
 # Reduce the size of a string until it fits within a given width
-def truncatestring(text, text_size, width):
+def truncatestring(text: str, text_size: int, width: int):
     while True:
         length = display.measure_text(text, text_size)
         if length > 0 and length > width:
@@ -135,7 +135,7 @@ distance_detail2 = (
 
 
 # Draw the badge, including user text
-def draw_badge(index: int = 0, skew: str = "normal", full_update=True):
+def draw_badge(index: int = 0, skew: str = "normal", full_update: bool = True) -> None:
     display.pen(0)
     display.clear()
 
@@ -245,7 +245,7 @@ def draw_badge(index: int = 0, skew: str = "normal", full_update=True):
 
 
 # Draw the badge, including user text
-def update_badge(index: int = 0, skew: str = "normal"):
+def update_badge(index: int = 0, skew: str = "normal") -> None:
 
     if DICT_BADGE_IMAGES[skew] == 0:
         print(f"No image files for skew {skew}. Not updating.")

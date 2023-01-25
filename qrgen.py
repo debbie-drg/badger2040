@@ -28,13 +28,13 @@ display.update_speed(badger2040.UPDATE_NORMAL)
 # ------------------------------
 
 
-def measure_qr_code(size, code):
+def measure_qr_code(size: int, code: qrcode.QRCode):
     w, h = code.get_size()
     module_size = int(size / w)
     return module_size * w, module_size
 
 
-def draw_qr_code(ox, oy, size, code):
+def draw_qr_code(ox: int, oy: int, size: int, code: qrcode.QRCode) -> None:
     size, module_size = measure_qr_code(size, code)
     display.pen(15)
     display.rectangle(ox, oy, size, size)
@@ -47,12 +47,12 @@ def draw_qr_code(ox, oy, size, code):
                 )
 
 
-def draw_qr_file(index: int = 0, skew: str = "normal"):
+def draw_qr_file(index: int = 0, skew: str = "normal") -> None:
     display.led(128)
 
     if TOTAL_CODES[skew] == 0:
         print(f"No QR codes in skew {skew}. Code will not be printed.")
-        return None
+        return
 
     index = index % TOTAL_CODES[skew]
     file = CODES[skew][index]

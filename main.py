@@ -1,7 +1,5 @@
 import time
 import badger2040
-import qrcode
-import os
 import time
 import state_handling
 
@@ -20,7 +18,7 @@ import badge, qrgen, gallery
 display = badger2040.Badger2040()
 
 
-def update_content(state):
+def update_content(state: dict) -> None:
     mode = state["mode"]
     current_index = state["index"]
     skew = state["skew"]
@@ -39,7 +37,7 @@ def update_content(state):
         gallery.show_image(current_index, skew)
 
 
-def buttons_abc(state):
+def buttons_abc(state: dict) -> bool:
     button_a = machine.Pin(badger2040.BUTTON_A).value()
     button_b = machine.Pin(badger2040.BUTTON_B).value()
     button_c = machine.Pin(badger2040.BUTTON_C).value()
@@ -58,7 +56,6 @@ def buttons_abc(state):
             state["mode"] = "qr"
 
         if button_a and button_c:
-            a_and_c = True
             state["mode"] = "gallery"
             state["gallery_index"] += 1
             if NUMBER_ALTERNATE_GALLERIES > 0:
@@ -80,7 +77,7 @@ def buttons_abc(state):
     return False
 
 
-def buttons_updown(state):
+def buttons_updown(state: dict) -> bool:
 
     button_up = machine.Pin(badger2040.BUTTON_UP).value()
     button_down = machine.Pin(badger2040.BUTTON_DOWN).value()
