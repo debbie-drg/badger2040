@@ -28,7 +28,7 @@ full_image = bytearray(int(296 * 128 / 8))
 # ------------------------------
 
 
-def show_image(index: int, skew: str ="normal") -> None:
+def show_image(index: int, skew: str = "normal") -> None:
 
     if TOTAL_GALLERY_IMAGES[skew] == 0:
         print(f"No images in skew {skew}. Image will not be printed")
