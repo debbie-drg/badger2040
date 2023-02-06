@@ -13,7 +13,7 @@ def state_defaults():
     return state
 
 
-def state_load(app, state):
+def state_load(app, state) -> bool:
     try:
         data = json.loads(open("/state/{}.json".format(app), "r").read())
         if type(data) is dict:
@@ -25,21 +25,19 @@ def state_load(app, state):
     return False
 
 
-def state_delete(app):
+def state_delete(app) -> None:
     try:
         os.remove("/state/{}.json".format(app))
     except OSError:
         pass
 
 
-def state_save(app, data):
+def state_save(app, data) -> None:
     try:
         with open("/state/{}.json".format(app), "w") as f:
             f.write(json.dumps(data))
             f.flush()
     except OSError:
-        import os
-
         try:
             os.stat("/state")
         except OSError:
@@ -47,7 +45,7 @@ def state_save(app, data):
             state_save(app, data)
 
 
-def state_modify(app, data):
+def state_modify(app, data) -> None:
     state = {}
     state_load(app, state)
     state.update(data)
