@@ -14,4 +14,4 @@ State saving on flash has been included, thus the device will remember the curre
 
 All three modes have their own asset folders, encoded in variables within the `global_constants.py` file. Within those folders, there must be one subfolder with the name of each skew, containing the relevant files depending on the mode. A minimal example with only one skew called `normal` has been included with this repo, hence everything should work as is on the device. 
 
-The text for the QR codes and badges should follow the format of the provided examples. Images for the badge mode should have a resolution of `104x128`. Images for the gallery should have a resolution of `296x128`. They can be converted to the proper binary format using the [scripts in this folder](https://github.com/pimoroni/pimoroni-pico/tree/main/examples/badger2040/image_converter).
+The text for the QR codes and badges should follow the format of the provided examples. Images for the badge mode should have a resolution of `102x128`. Images for the gallery should have a resolution of `296x128`. They must be in JPG format.
