@@ -153,7 +153,7 @@ def draw_image(index: int = 0, skew: str = "normal") -> None:
     display.draw_image(image_path, WIDTH - IMAGE_WIDTH, 0)
 
     # Draw a border around the image
-    display.draw_empty_rectangle(WIDTH - IMAGE_WIDTH, 0, WIDTH - 1, HEIGHT)
+    display.draw_empty_rectangle(WIDTH - IMAGE_WIDTH, 0, IMAGE_WIDTH - 1, HEIGHT)
 
 
 # Draw the badge, including user text
@@ -165,7 +165,7 @@ def draw_badge(index: int = 0, skew: str = "normal", full_update=True) -> None:
         draw_image(index, skew)
         display.update()
     else:
-        display.partial_update(WIDTH - IMAGE_WIDTH, 0, IMAGE_WIDTH, HEIGHT)
+        display.partial_update(WIDTH - IMAGE_WIDTH, 0, IMAGE_WIDTH + 1, HEIGHT)
 
 
 # Main programme for testing purposes

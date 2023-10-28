@@ -41,13 +41,14 @@ def draw_display_border(width: int) -> None:
 
 
 def draw_empty_rectangle(
-    x_coord_start: int, y_coord_start: int, x_coord_end: int, y_coord_end: int
+    x_coord: int, y_coord: int, width: int, height: int
 ) -> None:
     display.set_pen(0)
-    display.line(x_coord_start, y_coord_start, x_coord_start, y_coord_end)
-    display.line(x_coord_start, y_coord_start, x_coord_end, y_coord_start)
-    display.line(x_coord_start, y_coord_end, x_coord_end, y_coord_end)
-    display.line(x_coord_end, y_coord_start, x_coord_end, y_coord_end)
+    
+    display.line(x_coord, y_coord, x_coord, y_coord + height)
+    display.line(x_coord, y_coord, x_coord + width, y_coord)
+    display.line(x_coord, y_coord + height, x_coord + width, y_coord + height)
+    display.line(x_coord + width, y_coord, x_coord + width, y_coord + height)
 
 
 def draw_line(
@@ -126,9 +127,9 @@ def update() -> None:
 
 
 def partial_update(
-    x_coord_start: int, y_coord_start: int, x_coord_end: int, y_coord_end: int
+    x_coord: int, y_coord: int, width: int, height: int
 ) -> None:
-    display.partial_update(x_coord_start, y_coord_start, x_coord_end, y_coord_end)
+    display.partial_update(x_coord, y_coord, width, height)
 
 
 def woken_by_button() -> None:
