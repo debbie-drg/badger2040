@@ -1,11 +1,6 @@
 # Global Constants
 
-import badger2040
-
 BATTERY_TIMER = 20
-
-WIDTH = badger2040.WIDTH
-HEIGHT = badger2040.HEIGHT
 
 # Skew and alternate gallery lists
 
@@ -18,6 +13,6 @@ MAX_PARTIAL_UPDATES = 2
 
 # Asset directories
 
+GALLERY_DIRECTORY = "images"
 BADGE_ASSETS_DIRECTORY = "badge_assets"
 QR_CODE_DIRECTORY = "qrcodes"
-GALLERY_DIRECTORY = "images"

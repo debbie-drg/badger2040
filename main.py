@@ -1,7 +1,6 @@
 import time
-import badger2040
-import time
 import state_handling
+import badge, qr, gallery, buttons, display
 
 from global_constants import (
     BATTERY_TIMER,
@@ -12,10 +11,6 @@ from global_constants import (
 
 NUMBER_SKEWS = len(SKEW_LIST)
 NUMBER_ALTERNATE_GALLERIES = len(ALTERNATE_GALLERY_SKEWS)
-
-import badge, qrgen, gallery
-
-display = badger2040.Badger2040()
 
 
 def update_content(state: dict) -> None:
@@ -31,16 +26,16 @@ def update_content(state: dict) -> None:
         badge.draw_badge(current_index, skew, full_update=state["mode_change"])
 
     if mode == "qr":
-        qrgen.draw_qr_file(current_index, skew)
+        qr.draw_qr_file(current_index, skew)
 
     if mode == "gallery":
         gallery.show_image(current_index, skew)
 
 
 def buttons_abc(state: dict) -> bool:
-    button_a = machine.Pin(badger2040.BUTTON_A).value()
-    button_b = machine.Pin(badger2040.BUTTON_B).value()
-    button_c = machine.Pin(badger2040.BUTTON_C).value()
+    button_a = buttons.is_pressed("a")
+    button_b = buttons.is_pressed("b")
+    button_c = buttons.is_pressed("c")
 
     if any([button_a, button_b, button_c]):
         state["mode_change"] = True
@@ -78,9 +73,8 @@ def buttons_abc(state: dict) -> bool:
 
 
 def buttons_updown(state: dict) -> bool:
-
-    button_up = machine.Pin(badger2040.BUTTON_UP).value()
-    button_down = machine.Pin(badger2040.BUTTON_DOWN).value()
+    button_up = buttons.is_pressed("up")
+    button_down = buttons.is_pressed("down")
 
     if button_up:
         state["index"] += 1
@@ -111,17 +105,16 @@ def buttons_updown(state: dict) -> bool:
     return False
 
 
-def main_loop():
+def main_loop() -> None:
     state = state_handling.state_defaults()
     if not state_handling.state_load("main", state):
         update_content(state)
 
     start_time = time.time()
 
-    woken_by_button = badger2040.woken_by_button()
+    woken_by_button = display.woken_by_button()
 
     while True:
-
         if woken_by_button:
             start_time = time.time()
             display.led(128)

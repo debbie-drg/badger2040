@@ -2,7 +2,7 @@ import os
 import json
 
 
-def state_defaults():
+def state_defaults() -> dict:
     state = {
         "mode": "badge",
         "skew": "normal",
@@ -13,9 +13,9 @@ def state_defaults():
     return state
 
 
-def state_load(app, state) -> bool:
+def state_load(app: str, state: dict) -> bool:
     try:
-        data = json.loads(open("/state/{}.json".format(app), "r").read())
+        data = json.loads(open(f"/state/{app}.json", "r").read())
         if type(data) is dict:
             state.update(data)
             return True
@@ -25,19 +25,21 @@ def state_load(app, state) -> bool:
     return False
 
 
-def state_delete(app) -> None:
+def state_delete(app: str) -> None:
     try:
-        os.remove("/state/{}.json".format(app))
+        os.remove(f"/state/{app}.json")
     except OSError:
         pass
 
 
-def state_save(app, data) -> None:
+def state_save(app: str, data: dict) -> None:
     try:
-        with open("/state/{}.json".format(app), "w") as f:
+        with open(f"/state/{app}.json", "w") as f:
             f.write(json.dumps(data))
             f.flush()
     except OSError:
+        import os
+
         try:
             os.stat("/state")
         except OSError:
@@ -45,7 +47,7 @@ def state_save(app, data) -> None:
             state_save(app, data)
 
 
-def state_modify(app, data) -> None:
+def state_modify(app, data):
     state = {}
     state_load(app, state)
     state.update(data)
